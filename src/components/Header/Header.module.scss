@@ -1,0 +1,86 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+
+  min-height: 80px;
+  padding: 0 20px;
+  margin-bottom: 25px;
+  background-color: #ffffff;
+
+  &__user {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+
+    a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+
+      &:hover span {
+        color: #1890ff;
+      }
+    }
+  }
+}
+
+.btn {
+  min-width: 110px;
+  padding: 10px 18px;
+
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+
+  background-color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  transition: 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    color: #ffffff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+  }
+
+  &--sign-in {
+    border: 1px solid transparent;
+
+    &:hover {
+      color: #ffffff;
+      background-color: #1890ff;
+      border-color: #1890ff;
+    }
+  }
+
+  &--sign-up {
+    color: #52c41a;
+    border: 1px solid #52c41a;
+
+    &:hover {
+      color: #ffffff;
+      background-color: #52c41a;
+      border-color: #52c41a;
+    }
+  }
+}
+
+.username {
+  margin-right: 12px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 28px;
+  color: rgba(0, 0, 0, 0.85);
+  transition: 0.3s;
+}
+
+.avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+}

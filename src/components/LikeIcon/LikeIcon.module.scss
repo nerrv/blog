@@ -1,0 +1,56 @@
+.btn {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  height: 14px;
+
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  &:disabled {
+    pointer-events: none;
+  }
+}
+
+.likes-count {
+  margin-left: 5px;
+
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  line-height: 22px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.75);
+}
+
+.like {
+  fill: #ffffff;
+
+  stroke: #000000bf;
+  stroke-opacity: 0.75;
+  stroke-width: 1px;
+
+  transition: 0.3s;
+
+  &:hover {
+    fill: #ff0707;
+    stroke: #ff0707;
+  }
+}
+
+.active {
+  fill: #ff0707;
+  stroke: none;
+  animation: like 0.5s 1;
+}
+
+@keyframes like {
+  40% {
+    transform: scale(0.7);
+  }
+  0%,
+  80%,
+  100% {
+    transform: scale(1);
+  }
+}
