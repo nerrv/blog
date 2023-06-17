@@ -21,7 +21,7 @@ export const fetchLogin = createAsyncThunk('user/fetchLogin', async (data, { rej
   }
 })
 
-export const fetchUser = createAsyncThunk('fetchUser', async () => {
+export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
   const res = await axios.get('https://blog.kata.academy/api/user', {
     headers: {
       Authorization: `Token ${localStorage.getItem('token')}`,
