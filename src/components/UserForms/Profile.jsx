@@ -58,6 +58,7 @@ const Profile = () => {
           <input
             className={cn(classes.input, { [classes['input--error']]: errors.username })}
             {...register('username', {
+              required: 'Username cannot be empty',
               pattern: {
                 value: /^[a-z][a-z0-9]*$/,
                 message: 'Username is invalid',
@@ -78,6 +79,7 @@ const Profile = () => {
           <input
             className={cn(classes.input, { [classes['input--error']]: errors.email })}
             {...register('email', {
+              required: 'Email cannot be empty',
               pattern: {
                 value:
                   /^[a-z0-9-]+(\.[\w-]+)*@([a-z0-9-]+(\.[a-z0-9-]+)*?\.[a-z]{2,6}|(\d{1,3}\.){3}\d{1,3})(:\d{4})?$/g,
