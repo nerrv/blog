@@ -113,7 +113,7 @@ const Profile = () => {
             className={cn(classes.input, { [classes['input--error']]: errors.image })}
             {...register('image', {
               pattern: {
-                value: /(^https?:\/\/)?[a-z0-9~_\-.]+\.[a-z]{2,9}(\/|:|\?[!-~]*)?$/i,
+                value: /[-a-zA-Z0-9@:%_\\+.~#?&\\/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\\+.~#?&\\/=]*)?/gi,
                 message: 'Invalid url',
               },
             })}
