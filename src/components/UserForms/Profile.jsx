@@ -1,18 +1,25 @@
+import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import cn from 'classnames'
 
+import Loader from '../Loader/Loader'
 import { updateUser } from '../../store/userSlice'
 
 import classes from './UserForms.module.scss'
 
 const Profile = () => {
+  const dispatch = useDispatch()
+
   const user = useSelector((state) => state.user.user)
+  const loading = useSelector((state) => state.user.loading)
+  const error = useSelector((state) => state.user.error)
 
   const {
     register,
     formState: { errors, isValid },
     handleSubmit,
+    setError,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -23,7 +30,18 @@ const Profile = () => {
     },
   })
 
-  const dispatch = useDispatch()
+  useEffect(() => {
+    if (!error) return
+    const errorName = Object.keys(error)[0]
+
+    if (errorName === 'username') {
+      setError('username', { type: 'custom', message: 'Username is already taken' })
+    }
+
+    if (errorName === 'email') {
+      setError('email', { type: 'custom', message: 'Email is already taken' })
+    }
+  }, [error])
 
   const onSubmit = (data) => {
     const newData = Object.fromEntries(Object.entries(data).filter(([, value]) => value.trim().length))
@@ -32,6 +50,7 @@ const Profile = () => {
 
   return (
     <div className={classes.wrapper}>
+      {loading && <Loader />}
       <h2 className={classes.title}>Edit Profile</h2>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <label className={classes.label}>

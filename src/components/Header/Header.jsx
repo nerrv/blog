@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 
@@ -9,24 +9,28 @@ import classes from './Header.module.scss'
 
 const Header = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
   const username = useSelector((state) => state.user.user.username)
   const avatar = useSelector((state) => state.user.user.image)
 
   useEffect(() => {
-    dispatch(fetchUser())
+    if (localStorage.getItem('token')) {
+      dispatch(fetchUser())
+    }
   }, [])
 
   const onLogOut = () => {
     dispatch(setsIsLoggedOut())
+    navigate('/sign-in')
     localStorage.removeItem('token')
   }
 
   const loggedIn = (
     <>
       <Link to="/new-article">
-        <button className={`${classes.btn} ${classes['btn--sign-up']}`} type="button">
+        <button className={`${classes.btn} ${classes['btn--green']}`} type="button">
           Create article
         </button>
       </Link>
@@ -48,7 +52,7 @@ const Header = () => {
         </button>
       </Link>
       <Link to="/sign-up">
-        <button className={`${classes.btn} ${classes['btn--sign-up']}`} type="button">
+        <button className={`${classes.btn} ${classes['btn--green']}`} type="button">
           Sign Up
         </button>
       </Link>

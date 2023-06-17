@@ -31,7 +31,7 @@ export const fetchUser = createAsyncThunk('fetchUser', async () => {
   return res.data
 })
 
-export const updateUser = createAsyncThunk('user/updateUser', async (data) => {
+export const updateUser = createAsyncThunk('user/updateUser', async (data, { rejectWithValue }) => {
   try {
     const res = await axios.put(
       'https://blog.kata.academy/api/user',
@@ -45,7 +45,7 @@ export const updateUser = createAsyncThunk('user/updateUser', async (data) => {
     )
     return res.data
   } catch (err) {
-    throw new Error('Error')
+    return rejectWithValue(err.response.data.errors)
   }
 })
 
@@ -72,7 +72,7 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchRegistration.fulfilled, (state, action) => {
       state.user = action.payload.user
-      state.error = action.payload
+      state.error = null
       state.isLoggedIn = true
     })
     builder.addCase(fetchRegistration.rejected, (state, action) => {
@@ -88,16 +88,10 @@ const userSlice = createSlice({
       state.error = action.payload
     })
 
-    builder.addCase(fetchUser.pending, (state) => {
-      state.loading = true
-    })
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.user = action.payload.user
       state.isLoggedIn = true
       state.loading = false
-    })
-    builder.addCase(fetchUser.rejected, (state, action) => {
-      state.error = action.payload
     })
 
     builder.addCase(updateUser.pending, (state) => {
@@ -110,6 +104,7 @@ const userSlice = createSlice({
     })
     builder.addCase(updateUser.rejected, (state, action) => {
       state.error = action.payload
+      state.loading = false
     })
   },
 })

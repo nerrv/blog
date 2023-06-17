@@ -32,7 +32,6 @@ const SignUp = () => {
     if (errorName === 'email') {
       setError('email', { type: 'custom', message: 'Email is already taken' })
     }
-    console.log(errorName)
   }, [error])
 
   const onSubmit = (data) => {

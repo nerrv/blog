@@ -48,23 +48,22 @@
 }
 
 .user {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  display: grid;
+  grid-template-areas:
+    'text img'
+    'btns btns';
   margin-left: 10px;
-}
 
-.user__info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-
-.user__info span {
-  text-align: end;
+  &__info {
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
 
 .avatar {
+  grid-area: img;
   width: 46px;
   height: 46px;
   margin-left: 10px;
@@ -95,9 +94,10 @@
 }
 
 .btns {
+  grid-area: btns;
   display: flex;
   align-items: center;
-  flex-basis: 50%;
+  margin-top: 10px;
 }
 
 .btn {

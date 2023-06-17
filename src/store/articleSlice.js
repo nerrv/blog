@@ -2,13 +2,17 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const fetchArticle = createAsyncThunk('article/fetchArticle', async (slug) => {
-  const res = await axios.get(`https://blog.kata.academy/api/articles/${slug}`, {
-    headers: {
-      Authorization: `Token ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-  })
-  return res.data.article
+  try {
+    const res = await axios.get(`https://blog.kata.academy/api/articles/${slug}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    return res.data.article
+  } catch (err) {
+    throw new Error(err)
+  }
 })
 
 export const createArticle = createAsyncThunk('article/createArticle', async (data) => {
@@ -27,7 +31,7 @@ export const createArticle = createAsyncThunk('article/createArticle', async (da
     )
     return res.data.article
   } catch (err) {
-    throw new Error('Error')
+    throw new Error(err)
   }
 })
 
@@ -47,7 +51,7 @@ export const updateArticle = createAsyncThunk('article/updateArticle', async (da
     )
     return res.data
   } catch (err) {
-    throw new Error('error')
+    throw new Error(err)
   }
 })
 
@@ -129,10 +133,18 @@ const articleSlice = createSlice({
     builder.addCase(fetchArticle.pending, (state) => {
       state.loading = true
     })
+
     builder.addCase(createArticle.fulfilled, (state) => {
       state.loading = false
     })
     builder.addCase(createArticle.pending, (state) => {
+      state.loading = true
+    })
+
+    builder.addCase(updateArticle.fulfilled, (state) => {
+      state.loading = false
+    })
+    builder.addCase(updateArticle.pending, (state) => {
       state.loading = true
     })
   },

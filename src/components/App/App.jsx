@@ -8,6 +8,7 @@ import SignUp from '../UserForms/SignUp'
 import Profile from '../UserForms/Profile'
 import CreateArticle from '../UserForms/CreateArticle'
 import EditArticle from '../UserForms/EditArticle'
+import NotFound from '../NotFound/NotFound'
 
 import classes from './App.module.scss'
 
@@ -24,7 +25,8 @@ const App = () => {
           <Route path="/sign-up" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/new-article" element={<CreateArticle />} />
-          <Route path="articles/:slug/edit" element={<EditArticle />} />
+          <Route path="/articles/:slug/edit" element={<EditArticle />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </div>

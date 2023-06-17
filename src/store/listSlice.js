@@ -2,13 +2,17 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const fetchArticles = createAsyncThunk('fetchArticles', async (offset) => {
-  const res = await axios.get(`https://blog.kata.academy/api/articles?limit=5&offset=${offset}`, {
-    headers: {
-      Authorization: `Token ${localStorage.getItem('token')}`,
-      'Content-Type': 'application/json',
-    },
-  })
-  return res.data
+  try {
+    const res = await axios.get(`https://blog.kata.academy/api/articles?limit=5&offset=${offset}`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem('token')}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    return res.data
+  } catch (err) {
+    throw new Error(err)
+  }
 })
 
 const initialState = {
@@ -16,7 +20,6 @@ const initialState = {
   total: 0,
   page: 1,
   loading: true,
-  error: null,
 }
 
 const listSlice = createSlice({

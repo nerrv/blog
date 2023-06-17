@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useForm, useFieldArray } from 'react-hook-form'
-import { useNavigate } from 'react-router'
+import { Navigate, useNavigate, useParams } from 'react-router'
 import { message } from 'antd'
 import cn from 'classnames'
 
@@ -8,13 +8,10 @@ import { createArticle, updateArticle } from '../../store/articleSlice'
 
 import classes from './UserForms.module.scss'
 
-const CreateArticle = ({
-  edit = false,
-  defaultValues = { title: '', description: '', body: '', tags: [{ tag: '' }] },
-}) => {
+const CreateArticle = ({ edit = false, defaultValues = { title: '', description: '', body: '' } }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const slug = useSelector((state) => state.article.article.slug)
+  const { slug } = useParams()
 
   const {
     register,
@@ -22,7 +19,7 @@ const CreateArticle = ({
     handleSubmit,
     control,
   } = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues,
   })
 
@@ -35,13 +32,23 @@ const CreateArticle = ({
     const { tags, ...articleData } = data
     const tagList = tags.map((item) => item.tag)
     const newData = { article: { tagList, ...articleData }, slug }
+
     if (slug) {
-      dispatch(updateArticle(newData)).then(() => navigate('/articles'))
-      message.success('Article has been updated')
-    } else {
-      dispatch(createArticle(newData)).then(() => navigate('/articles'))
-      message.success('Article has been created')
+      dispatch(updateArticle(newData)).then(() => {
+        message.success('Article has been updated')
+        navigate('/articles')
+      })
     }
+    if (!slug) {
+      dispatch(createArticle(newData)).then(() => {
+        message.success('Article has been created')
+        navigate('/articles')
+      })
+    }
+  }
+
+  if (!localStorage.getItem('token')) {
+    return <Navigate to="/sign-in" />
   }
 
   return (
@@ -97,7 +104,7 @@ const CreateArticle = ({
                   <div className={classes.tags__wrapper}>
                     <input
                       className={cn(classes.input, { [classes['input--error']]: errors.tags })}
-                      {...register(`tags.${index}.tag`, { required: 'Tag is required' })}
+                      {...register(`tags.${index}.tag`, { required: 'Tag cannot be empty' })}
                       placeholder="Tag"
                     />
                     <div className={classes.error}>{errors?.tags && <p>{errors?.tags[index]?.tag?.message}</p>}</div>

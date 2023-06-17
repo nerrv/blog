@@ -11,9 +11,10 @@ import classes from './Article.module.scss'
 
 const Article = () => {
   const dispatch = useDispatch()
+  const { slug } = useParams()
+
   const { article } = useSelector((state) => state.article)
   const loading = useSelector((state) => state.article.loading)
-  const { slug } = useParams()
 
   useEffect(() => {
     if (slug) {

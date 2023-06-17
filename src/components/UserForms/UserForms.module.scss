@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+
   max-width: 380px;
   margin: 60px auto;
   padding: 50px 35px;
@@ -19,17 +20,17 @@
   }
 }
 
-.form {
-  width: 100%;
-  font-family: 'Roboto', sans-serif;
-}
-
 .title {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 28px;
+}
+
+.form {
+  width: 100%;
+  font-family: 'Roboto', sans-serif;
 }
 
 .label {
@@ -95,6 +96,8 @@
 
   &--send {
     width: 50%;
+    max-width: 320px;
+    margin-top: 20px;
   }
 
   &--delete {
@@ -127,55 +130,6 @@
   }
 }
 
-.footer {
-  margin-top: 10px;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 20px;
-  color: #8c8c8c;
-
-  a {
-    color: #1890ff;
-    text-decoration: none;
-  }
-}
-
-.agreement {
-  display: flex;
-  align-items: flex-start;
-  margin: 30px 0 10px;
-  position: relative;
-
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 22px;
-  color: #595959;
-  cursor: pointer;
-
-  &::before {
-    content: '';
-    top: -10px;
-    position: absolute;
-    width: 320px;
-    height: 1px;
-    background-color: #e8e8e8;
-  }
-
-  input {
-    cursor: pointer;
-  }
-}
-
-.error {
-  p {
-    margin: 0 0 10px 0;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-    color: #f5222d;
-  }
-}
-
 .tags {
   display: flex;
   align-items: flex-end;
@@ -197,5 +151,54 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
+  }
+}
+
+.agreement {
+  display: flex;
+  align-items: flex-start;
+  margin: 30px 0 10px;
+  position: relative;
+
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  color: #595959;
+  cursor: pointer;
+
+  &::before {
+    content: '';
+    top: -10px;
+    position: absolute;
+    width: 320px;
+    height: 1px;
+    background: #e8e8e8;
+  }
+
+  input {
+    cursor: pointer;
+  }
+}
+
+.footer {
+  margin-top: 10px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: #8c8c8c;
+
+  a {
+    color: #1890ff;
+    text-decoration: none;
+  }
+}
+
+.error {
+  p {
+    margin: 0 0 10px 0;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+    color: #f5222d;
   }
 }

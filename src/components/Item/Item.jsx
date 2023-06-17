@@ -20,8 +20,10 @@ const Item = ({ article, isFull }) => {
   const formatDate = (date) => format(new Date(date), 'LLLL d, yyyy')
 
   const onConfirm = () => {
-    dispatch(deleteArticle(slug)).then(() => navigate('/articles'))
-    message.success('Article has been deleted')
+    dispatch(deleteArticle(slug)).then(() => {
+      message.success('Article has been deleted')
+      navigate('/articles')
+    })
   }
 
   return (
