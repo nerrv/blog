@@ -28,9 +28,10 @@ const SignIn = () => {
       setError('password', { type: 'custom', message: 'Invalid password or email' })
     }
     if (!error && isLoggedIn) {
-      dispatch(fetchArticles(0)).then(() => navigate('/articles'))
+      dispatch(fetchArticles(0))
+      navigate('/articles')
     }
-  }, [error])
+  }, [error, isLoggedIn])
 
   const onSubmit = (data) => {
     const user = { user: { ...data } }

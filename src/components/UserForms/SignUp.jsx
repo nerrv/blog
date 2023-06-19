@@ -1,15 +1,17 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import cn from 'classnames'
 
 import { fetchRegistration } from '../../store/userSlice'
+import { fetchArticles } from '../../store/listSlice'
 
 import classes from './UserForms.module.scss'
 
 const SignUp = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const {
     register,
@@ -20,19 +22,26 @@ const SignUp = () => {
   } = useForm({ mode: 'onBlur' })
 
   const error = useSelector((state) => state.user.error)
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
 
   useEffect(() => {
-    if (!error) return
-    const errorName = Object.keys(error)[0]
+    if (error) {
+      const errorName = Object.keys(error)[0]
 
-    if (errorName === 'username') {
-      setError('username', { type: 'custom', message: 'Username is already taken' })
+      if (errorName === 'username') {
+        setError('username', { type: 'custom', message: 'Username is already taken' })
+      }
+
+      if (errorName === 'email') {
+        setError('email', { type: 'custom', message: 'Email is already taken' })
+      }
     }
 
-    if (errorName === 'email') {
-      setError('email', { type: 'custom', message: 'Email is already taken' })
+    if (!error && isLoggedIn) {
+      dispatch(fetchArticles(0))
+      navigate('/articles')
     }
-  }, [error])
+  }, [error, isLoggedIn])
 
   const onSubmit = (data) => {
     const { username, email, password } = data
