@@ -18,18 +18,13 @@ export const fetchArticles = createAsyncThunk('list/fetchArticles', async (offse
 const initialState = {
   articles: [],
   total: 0,
-  page: 1,
   loading: true,
 }
 
 const listSlice = createSlice({
   name: 'list',
   initialState,
-  reducers: {
-    setPage: (state, action) => {
-      state.page = action.payload
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchArticles.pending, (state) => {
       state.loading = true
