@@ -19,7 +19,7 @@ const CreateArticle = ({ edit = false, defaultValues = { title: '', description:
     handleSubmit,
     control,
   } = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues,
   })
 
@@ -63,6 +63,7 @@ const CreateArticle = ({ edit = false, defaultValues = { title: '', description:
           className={cn(classes.input, { [classes['input--error']]: errors.title })}
           {...register('title', {
             required: 'Title is required',
+            validate: (value) => value.trim().length || 'Title cannot be empty',
           })}
           id="title"
           placeholder="Title"
@@ -76,6 +77,7 @@ const CreateArticle = ({ edit = false, defaultValues = { title: '', description:
           className={cn(classes.input, { [classes['input--error']]: errors.description })}
           {...register('description', {
             required: 'Description is required',
+            validate: (value) => value.trim().length || 'Description cannot be empty',
           })}
           id="description"
           placeholder="Description"
@@ -89,6 +91,7 @@ const CreateArticle = ({ edit = false, defaultValues = { title: '', description:
           className={cn(classes.input, { [classes['input--error']]: errors.body })}
           {...register('body', {
             required: 'Text is required',
+            validate: (value) => value.trim().length || 'Text cannot be empty',
           })}
           id="text"
           placeholder="Text"
@@ -104,7 +107,10 @@ const CreateArticle = ({ edit = false, defaultValues = { title: '', description:
                   <div className={classes.tags__wrapper}>
                     <input
                       className={cn(classes.input, { [classes['input--error']]: errors.tags })}
-                      {...register(`tags.${index}.tag`, { required: 'Tag cannot be empty' })}
+                      {...register(`tags.${index}.tag`, {
+                        required: 'Tag is required',
+                        validate: (value) => value.trim().length || 'Tag cannot be empty',
+                      })}
                       placeholder="Tag"
                     />
                     <div className={classes.error}>{errors?.tags && <p>{errors?.tags[index]?.tag?.message}</p>}</div>

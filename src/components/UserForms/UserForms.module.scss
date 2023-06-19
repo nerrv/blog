@@ -41,7 +41,6 @@
 }
 
 .input {
-  min-height: 40px;
   width: 100%;
   margin-bottom: 2px;
   padding: 8px 12px;
@@ -62,6 +61,11 @@
   &--error {
     border: 1px solid #f5222d;
   }
+}
+
+textarea {
+  min-height: 130px;
+  resize: none;
 }
 
 .btn {
@@ -97,7 +101,7 @@
   &--send {
     width: 50%;
     max-width: 320px;
-    margin-top: 20px;
+    margin-top: 25px;
   }
 
   &--delete {
