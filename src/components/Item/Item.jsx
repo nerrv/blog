@@ -37,9 +37,7 @@ const Item = ({ article, isFull }) => {
         </div>
 
         <ul className={classes.tags}>
-          {article.tagList.map((tag, index) => (
-            <li key={index}>{tag && <Tag>{tag}</Tag>}</li>
-          ))}
+          {article.tagList.map((tag, index) => (tag.trim().length ? <li key={index}>{<Tag>{tag}</Tag>}</li> : null))}
         </ul>
 
         <p className={classes.text}>{article.description}</p>
