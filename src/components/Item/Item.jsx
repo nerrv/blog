@@ -36,9 +36,11 @@ const Item = ({ article, isFull }) => {
           <LikeIcon favorited={article.favorited} slug={article.slug} count={article.favoritesCount} />
         </div>
 
-        <ul className={classes.tags}>
-          {article.tagList.map((tag, index) => (tag.trim().length ? <li key={index}>{<Tag>{tag}</Tag>}</li> : null))}
-        </ul>
+        {article.tagList && (
+          <ul className={classes.tags}>
+            {article.tagList.map((tag, index) => (tag.trim().length ? <li key={index}>{<Tag>{tag}</Tag>}</li> : null))}
+          </ul>
+        )}
 
         <p className={classes.text}>{article.description}</p>
       </section>
