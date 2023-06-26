@@ -38,7 +38,9 @@ const Item = ({ article, isFull }) => {
 
         {article.tagList && (
           <ul className={classes.tags}>
-            {article.tagList.map((tag, index) => (tag.trim().length ? <li key={index}>{<Tag>{tag}</Tag>}</li> : null))}
+            {article.tagList.map((tag, index) =>
+              tag && tag.trim().length ? <li key={index}>{<Tag>{tag}</Tag>}</li> : null
+            )}
           </ul>
         )}
 
